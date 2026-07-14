@@ -14,9 +14,8 @@ assert DB_NAME is not None
 client = MongoClient(MONGO_URI)
 db = client[DB_NAME]
 users_collection = db["users"]
-client = MongoClient(MONGO_URI)
-db = client[DB_NAME]
-users_collection = db["users"]
+accounts_collection = db["accounts"]
+transactions_collection = db["transactions"]
 
 if __name__ == "__main__":
     try:
