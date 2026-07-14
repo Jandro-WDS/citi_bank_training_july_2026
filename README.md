@@ -37,8 +37,8 @@ Simple Flask + MongoDB Atlas API with CRUD operations for users.
 |--------|----------------|----------------------|
 | POST   | /users         | Create a new user    |
 | GET    | /users         | List all users       |
-| GET    | /users/<id>    | Get a single user    |
-| DELETE | /users/<id>    | Delete a user         |
+| GET    | /users/id    | Get a single user    |
+| DELETE | /users/id    | Delete a user         |
 
 ## Example: Create user
 
