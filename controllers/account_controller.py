@@ -40,3 +40,8 @@ def withdraw(id):
 def get_transactions(id):
     result = account_service.get_transactions(id)
     return jsonify(result.get("data", {"error": result.get("error")})), result["status"]
+
+@account_bp.route("/api/accounts/<id>", methods=["DELETE"])
+def delete_account(id):
+    result = account_service.delete_account(id)
+    return jsonify(result.get("data", {"error": result.get("error")})), result["status"]

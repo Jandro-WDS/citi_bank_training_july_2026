@@ -1,7 +1,7 @@
 from bson import ObjectId
 from bson.errors import InvalidId
 from pymongo.errors import DuplicateKeyError
-from repositories import user_repository
+from repositories import user_repository, account_repository, transaction_repository
 from models.user import hash_password, user_to_dict, validate_user_payload
 
 
@@ -65,5 +65,10 @@ def delete_user(id):
     result = user_repository.delete_by_id(obj_id)
     if result.deleted_count == 0:
         return {"error": "User not found", "status": 404}
+    
+    accounts = account_repository.find_by_user_id(obj_id)
+    for account in accounts:
+        transaction_repository.delete_by_account_id(account["_id"])
+        account_repository.delete_by_id(account["_id"])
 
     return {"data": {"message": "User deleted"}, "status": 200}

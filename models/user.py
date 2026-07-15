@@ -8,7 +8,7 @@ def user_to_dict(user):
         "id": str(user["_id"]),
         "name": user["name"],
         "email": user["email"],
-        "encrypted password" : user["password"]
+        "encrypted password" : user["password"] #should be removed, just keepig it here to check out password hashing
     }
 
 def validate_user_payload(data, require_all=True):

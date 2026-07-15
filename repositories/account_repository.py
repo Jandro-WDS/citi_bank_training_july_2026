@@ -14,3 +14,6 @@ def update_balance(obj_id, new_balance):
     return accounts_collection.update_one(
         {"_id": obj_id}, {"$set": {"balance": new_balance}}
     )
+
+def delete_by_id(obj_id):
+    return accounts_collection.delete_one({"_id": obj_id})

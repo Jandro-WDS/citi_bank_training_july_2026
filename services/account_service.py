@@ -132,3 +132,19 @@ def get_transactions(account_id):
 
     txns = transaction_repository.find_by_account_id(obj_id)
     return {"data": [transaction_to_dict(t) for t in txns], "status": 200}
+
+def delete_account(account_id):
+    try: 
+        obj_id = ObjectId(account_id)
+    except InvalidId:
+        return {"error": "Invalid account id", "status": 400}
+    
+    account = account_repository.find_by_id(obj_id)
+
+    if not account:
+        return {"error": "Account not found", "status": 404}
+    
+    transaction_repository.delete_by_account_id(obj_id)
+    account_repository.delete_by_id(obj_id)
+
+    return {"data": {"message": "Account and transactions deleted"}, "status": 200}
