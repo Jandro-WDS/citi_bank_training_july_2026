@@ -1,6 +1,6 @@
 # User API
 
-Simple Flask + MongoDB Atlas API with CRUD operations for users.
+Simple Flask + MongoDB Atlas API with CRUD operations for users and their accounts.
 
 ## Stack
 - Python / Flask
@@ -12,7 +12,7 @@ Simple Flask + MongoDB Atlas API with CRUD operations for users.
 1. Clone the repo and create a virtual environment:
    ```
    python3 -m venv venv
-   source venv/bin/activate.fish
+   source venv/bin/activate
    ```
 
 2. Install dependencies:
@@ -32,13 +32,31 @@ Simple Flask + MongoDB Atlas API with CRUD operations for users.
    ```
 
 ## Endpoints
-
-| Method | Route          | Description         |
-|--------|----------------|----------------------|
-| POST   | /users         | Create a new user    |
-| GET    | /users         | List all users       |
-| GET    | /users/id    | Get a single user    |
-| DELETE | /users/id    | Delete a user         |
+ 
+### Users
+| Method | Route           | Description                             |
+|--------|-----------------|-----------------------------------------|
+| POST   | /users          | Create a new user                       |
+| GET    | /users          | List all users                          |
+| GET    | /users/\<id>    | Get a single user                       |
+| PATCH  | /users/\<id>    | Update a user                           |
+| DELETE | /users/\<id>    | Delete a user and all their data        |
+ 
+### Accounts
+| Method | Route                         | Description                            |
+|--------|-------------------------------|----------------------------------------|
+| POST   | /api/accounts                 | Create an account for a user           |
+| GET    | /api/accounts/\<id>           | Get a single account                   |
+| POST   | /api/accounts/\<id>/deposit   | Deposit money into an account          |
+| POST   | /api/accounts/\<id>/withdraw  | Withdraw money from an account         |
+| GET    | /api/accounts/users/\<id>    | Get all accounts belonging to one user |
+| DELETE | /api/accounts/\<id>           | Delete an account and its transactions |
+ 
+### Transactions
+| Method | Route                                               | Description                         |
+|--------|-----------------------------------------------------|-------------------------------------|
+| GET    | /api/accounts/\<id>/transactions                    | Get all transactions for an account |
+ 
 
 ## Example: Create user
 
