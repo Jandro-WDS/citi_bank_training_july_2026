@@ -15,3 +15,7 @@ export const creatUSer = async ( data :{name: string; email: string; password: s
     return res.data;
 }
 
+export const deleteUser = async (id: string) => {
+  const res = await client.delete(`/users/${id}`);
+  return res.data;
+};

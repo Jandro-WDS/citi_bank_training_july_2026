@@ -1,7 +1,31 @@
 import { useEffect, useState } from "react";
+import { getUsers } from "../api/userServices.ts";
 import type { User } from "../types";
-import { getUsers } from "../api/userServices";
-import UserCard from "../components/UserCard";
+
+function UserCard({ user }: { user: User }) {
+  const initials = user.name
+    .split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase();
+
+  return (
+    <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 flex flex-col gap-4 hover:shadow-md transition-shadow">
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 rounded-full bg-indigo-100 text-indigo-600 font-semibold text-lg flex items-center justify-center shrink-0">
+          {initials}
+        </div>
+        <div className="min-w-0">
+          <p className="font-semibold text-gray-900 truncate">{user.name}</p>
+          <p className="text-sm text-gray-400 truncate">{user.email}</p>
+        </div>
+      </div>
+      <div className="border-t border-gray-50 pt-4 flex items-center justify-between">
+        <span className="text-xs text-gray-400 font-mono truncate">{user.id}</span>
+      </div>
+    </div>
+  );
+}
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
@@ -15,18 +39,13 @@ export default function UsersPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const handleUserDeleted = (deletedId: string) => {
-    setUsers((prev) => prev.filter((u) => u.id !== deletedId));
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 px-8 py-12">
       <div className="max-w-5xl mx-auto">
+
         <div className="mb-10">
           <h1 className="text-3xl font-bold text-gray-900">Users</h1>
-          <p className="text-gray-400 mt-1">
-            {!loading && !error ? `${users.length} registered` : ""}
-          </p>
+          <p className="text-gray-400 mt-1">{!loading && !error ? `${users.length} registered` : ""}</p>
         </div>
 
         {loading && (
@@ -52,20 +71,20 @@ export default function UsersPage() {
         )}
 
         {!loading && !error && users.length === 0 && (
-          <p className="text-center text-gray-400 py-24">No users yet.</p>
+          <div className="text-center py-24 text-gray-400">
+            <p className="text-lg">No users yet.</p>
+            <p className="text-sm mt-1">Create one via POST /users to see it here.</p>
+          </div>
         )}
 
         {!loading && !error && users.length > 0 && (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {users.map((user) => (
-              <UserCard
-                key={user.id}
-                user={user}
-                onDeleted={handleUserDeleted}
-              />
+              <UserCard key={user.id} user={user} />
             ))}
           </div>
         )}
+
       </div>
     </div>
   );
