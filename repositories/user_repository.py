@@ -12,6 +12,9 @@ def find_all():
 def find_by_id(obj_id):
     return users_collection.find_one({"_id": obj_id})
 
+def find_by_email(email):
+    return users_collection.find_one({"email": email})
+
 
 def update_by_id(obj_id, data):
     return users_collection.update_one({"_id": obj_id}, {"$set": data})
