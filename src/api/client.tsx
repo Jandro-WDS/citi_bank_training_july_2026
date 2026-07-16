@@ -7,4 +7,18 @@ const client = axios.create({
     },
 });
 
-export default client;
+// token is stored outside React so the interceptor can read it
+let authToken: string | null = null;
+
+export const setAuthToken = (token: string | null) => {
+  authToken = token;
+};
+
+client.interceptors.request.use((config) => {
+  if (authToken) {
+    config.headers.Authorization = `Bearer ${authToken}`;
+  }
+  return config;
+});
+
+export default client;;
