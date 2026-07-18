@@ -120,6 +120,62 @@ def withdraw(account_id, amount):
     return {"data": account_to_dict(updated_account), "status": 200}
 
 
+def transfer(from_account_id, to_account_id, amount):
+    try:
+        from_obj_id = ObjectId(from_account_id)
+    except InvalidId:
+        return {"error": "Invalid source account id", "status": 400}
+
+    try:
+        to_obj_id = ObjectId(to_account_id)
+    except InvalidId:
+        return {"error": "Invalid destination account id", "status": 400}
+
+    if from_obj_id == to_obj_id:
+        return {"error": "Cannot transfer to the same account", "status": 400}
+
+    if not isinstance(amount, (int, float)) or amount <= 0:
+        return {"error": "Amount must be a positive number", "status": 400}
+
+    from_account = account_repository.find_by_id(from_obj_id)
+    if not from_account:
+        return {"error": "Source account not found", "status": 404}
+
+    to_account = account_repository.find_by_id(to_obj_id)
+    if not to_account:
+        return {"error": "Destination account not found", "status": 404}
+
+    if from_account["balance"] < amount:
+        return {"error": "Insufficient funds", "status": 400}
+
+    new_from_balance = from_account["balance"] - amount
+    new_to_balance = to_account["balance"] + amount
+
+    account_repository.update_balance(from_obj_id, new_from_balance)
+    account_repository.update_balance(to_obj_id, new_to_balance)
+
+    now = datetime.now(timezone.utc)
+
+    transaction_repository.insert_transaction({
+        "accountId": from_obj_id,
+        "type": "TRANSFER_OUT",
+        "amount": amount,
+        "relatedAccountId": to_obj_id,
+        "timestamp": now
+    })
+
+    transaction_repository.insert_transaction({
+        "accountId": to_obj_id,
+        "type": "TRANSFER_IN",
+        "amount": amount,
+        "relatedAccountId": from_obj_id,
+        "timestamp": now
+    })
+
+    updated_from_account = account_repository.find_by_id(from_obj_id)
+    return {"data": account_to_dict(updated_from_account), "status": 200}
+
+
 def get_transactions(account_id):
     try:
         obj_id = ObjectId(account_id)

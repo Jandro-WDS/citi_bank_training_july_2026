@@ -35,6 +35,13 @@ def withdraw(id):
     result = account_service.withdraw(id, data.get("amount"))
     return jsonify(result.get("data", {"error": result.get("error")})), result["status"]
 
+# transfer money to another account
+@account_bp.route("/api/accounts/<id>/transfer", methods=["POST"])
+def transfer(id):
+    data = request.get_json()
+    result = account_service.transfer(id, data.get("toAccountId"), data.get("amount"))
+    return jsonify(result.get("data", {"error": result.get("error")})), result["status"]
+
 # show transaction history
 @account_bp.route("/api/accounts/<id>/transactions", methods=["GET"])
 def get_transactions(id):

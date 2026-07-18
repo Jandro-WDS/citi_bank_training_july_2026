@@ -35,11 +35,11 @@ def login(data):
 
     user = user_repository.find_by_email(data["email"])
     if not user:
-        return {"error": "Invalid credentials", "status": 401}
+        return {"error": "Invalid credentials1", "status": 401}
 
     password_valid = bcrypt.checkpw(data["password"].encode(), user["password"].encode())
     if not password_valid:
-        return {"error": "Invalid credentials", "status": 401}
+        return {"error": "Invalid credentials2", "status": 401}
     
     role = user["role"]
 
