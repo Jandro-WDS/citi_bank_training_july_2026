@@ -6,7 +6,7 @@ def insert_user(data):
 
 
 def find_all():
-    return list(users_collection.find())
+    return users_collection.find({"role": {"$ne": "admin"}})
 
 
 def find_by_id(obj_id):
