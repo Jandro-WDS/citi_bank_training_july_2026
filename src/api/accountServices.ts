@@ -25,6 +25,11 @@ export const withdraw = async (id: string, amount: number) => {
   return res.data;
 };
 
+export const transfer = async (id: string, toAccountId: string, amount: number) => {
+  const res = await client.post(`/api/accounts/${id}/transfer`, { toAccountId, amount });
+  return res.data;
+};
+
 export const getTransactions = async (id: string) => {
   const res = await client.get(`/api/accounts/${id}/transactions`);
   return res.data;

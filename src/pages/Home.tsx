@@ -1,107 +1,189 @@
-import Navbar from "../components/Navbar";
+import { Link } from "react-router-dom";
+import { ShieldCheck, Zap, Smartphone, TrendingUp, ArrowRight, Building2 } from "lucide-react";
 
-function Home() {
+export default function Home() {
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-900 via-blue-800 to-blue-600">
-      <Navbar/>
-      {/* Hero Section */}
-      <section className="h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-slate-100">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+              <Building2 size={17} className="text-white" />
+            </div>
+            <span className="font-bold text-lg text-slate-900">Horizon Bank</span>
+          </div>
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+            <a href="#features" className="hover:text-slate-900 transition">Features</a>
+            <a href="#security" className="hover:text-slate-900 transition">Security</a>
+            <a href="#about" className="hover:text-slate-900 transition">About</a>
+          </nav>
+          <div className="flex items-center gap-3">
+            <Link
+              to="/login"
+              className="text-sm font-semibold text-slate-700 hover:text-slate-900 px-4 py-2 transition"
+            >
+              Log in
+            </Link>
+            <Link
+              to="/signup"
+              className="text-sm font-semibold bg-indigo-600 text-white px-4 py-2 rounded-xl hover:bg-indigo-700 transition shadow-sm shadow-indigo-200"
+            >
+              Open an account
+            </Link>
+          </div>
+        </div>
+      </header>
+
+      {/* Hero */}
+      <section className="relative overflow-hidden bg-slate-950">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(99,102,241,0.25),_transparent_60%)]" />
+        <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-24 md:py-32 grid md:grid-cols-2 gap-12 items-center">
+          <div>
+            <span className="inline-block text-xs font-semibold text-indigo-300 bg-indigo-500/10 border border-indigo-500/20 px-3 py-1 rounded-full mb-6">
+              Trusted by over 2 million members
+            </span>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight tracking-tight">
+              Banking that moves as fast as you do.
+            </h1>
+            <p className="text-lg text-slate-300 mt-6 max-w-xl">
+              Open accounts, move money, and track every transaction in real time — all
+              in one secure, beautifully simple platform built for modern life.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 mt-10">
+              <Link
+                to="/signup"
+                className="flex items-center justify-center gap-2 bg-indigo-600 text-white px-7 py-3.5 rounded-xl font-semibold hover:bg-indigo-500 transition shadow-lg shadow-indigo-900/40"
+              >
+                Get started free
+                <ArrowRight size={18} />
+              </Link>
+              <Link
+                to="/login"
+                className="flex items-center justify-center gap-2 border border-slate-700 text-white px-7 py-3.5 rounded-xl font-semibold hover:bg-white/5 transition"
+              >
+                Sign in to your account
+              </Link>
+            </div>
+          </div>
+
+          {/* Mock account card */}
+          <div className="relative">
+            <div className="bg-gradient-to-br from-indigo-600 to-violet-700 rounded-3xl p-7 shadow-2xl shadow-indigo-950/50 max-w-sm ml-auto">
+              <p className="text-white/60 text-xs font-medium uppercase tracking-wider">Total balance</p>
+              <p className="text-white text-4xl font-bold mt-2">$48,204.19</p>
+              <div className="flex items-center gap-2 mt-3">
+                <TrendingUp size={14} className="text-emerald-300" />
+                <span className="text-emerald-300 text-xs font-semibold">+2.4% this month</span>
+              </div>
+              <div className="mt-8 space-y-3">
+                <div className="flex items-center justify-between bg-white/10 rounded-xl px-4 py-3">
+                  <span className="text-white text-sm font-medium">Checking</span>
+                  <span className="text-white text-sm font-semibold">$12,940.00</span>
+                </div>
+                <div className="flex items-center justify-between bg-white/10 rounded-xl px-4 py-3">
+                  <span className="text-white text-sm font-medium">Savings</span>
+                  <span className="text-white text-sm font-semibold">$35,264.19</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section id="features" className="py-24 px-6 lg:px-8 bg-white">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">
+              Everything you need, nothing you don't
+            </h2>
+            <p className="text-slate-500 mt-4 text-lg">
+              A modern account built around simplicity, speed, and total transparency.
+            </p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              {
+                icon: ShieldCheck,
+                title: "Bank-grade security",
+                desc: "Your funds and data are protected with encryption and continuous monitoring.",
+              },
+              {
+                icon: Zap,
+                title: "Instant transfers",
+                desc: "Move money between your accounts instantly, any time of day.",
+              },
+              {
+                icon: Smartphone,
+                title: "Manage anywhere",
+                desc: "A fully responsive experience that works beautifully on any device.",
+              },
+              {
+                icon: TrendingUp,
+                title: "Grow your savings",
+                desc: "Competitive interest rates that help your balance grow automatically.",
+              },
+            ].map(({ icon: Icon, title, desc }) => (
+              <div
+                key={title}
+                className="p-6 rounded-2xl border border-slate-100 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+              >
+                <div className="w-11 h-11 bg-indigo-50 rounded-xl flex items-center justify-center mb-4">
+                  <Icon size={20} className="text-indigo-600" />
+                </div>
+                <h3 className="font-semibold text-slate-900 mb-2">{title}</h3>
+                <p className="text-sm text-slate-500 leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Security / stats band */}
+      <section id="security" className="bg-slate-950 py-20 px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          {[
+            ["2M+", "Members"],
+            ["$4.8B", "Managed assets"],
+            ["99.99%", "Platform uptime"],
+            ["24/7", "Fraud monitoring"],
+          ].map(([stat, label]) => (
+            <div key={label}>
+              <p className="text-3xl sm:text-4xl font-bold text-white">{stat}</p>
+              <p className="text-slate-400 text-sm mt-2">{label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* About / CTA */}
+      <section id="about" className="py-24 px-6 lg:px-8 bg-white">
         <div className="max-w-3xl mx-auto text-center">
-          <h1 className="text-5xl sm:text-6xl font-bold text-white mb-6">
-            Your Financial Future Starts Here
-          </h1>
-          <p className="text-xl sm:text-2xl text-blue-100 mb-8">
-            Experience modern banking with secure, fast, and convenient financial solutions tailored for you.
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-5">
+            Modern banking, built on trust.
+          </h2>
+          <p className="text-lg text-slate-500 mb-10">
+            Horizon Bank combines rigorous security with an effortless digital
+            experience — so you can focus on your money, not your banking app.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-blue-900 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors duration-300">
-              Get Started
-            </button>
-            <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-blue-900 transition-colors duration-300">
-              Learn More
-            </button>
-          </div>
+          <Link
+            to="/signup"
+            className="inline-flex items-center gap-2 bg-indigo-600 text-white px-8 py-3.5 rounded-xl font-semibold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200"
+          >
+            Open your account today
+            <ArrowRight size={18} />
+          </Link>
         </div>
       </section>
 
-      {/* About Us Section */}
-      <section className="bg-white py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6 text-center">
-            About Our Bank
-          </h2>
-          <p className="text-lg text-gray-600 text-center mb-8">
-            Founded in 2010, our bank has been committed to providing exceptional financial services to millions of customers worldwide. We combine cutting-edge technology with personalized service to make banking easier, safer, and more rewarding for everyone.
-          </p>
-          <div className="grid md:grid-cols-3 gap-8 mt-12">
-            <div className="bg-blue-50 p-8 rounded-lg">
-              <div className="text-3xl font-bold text-blue-900 mb-3">🔒</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Secure</h3>
-              <p className="text-gray-600">
-                Bank-level security with end-to-end encryption to protect your assets and personal information.
-              </p>
-            </div>
-            <div className="bg-blue-50 p-8 rounded-lg">
-              <div className="text-3xl font-bold text-blue-900 mb-3">⚡</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Fast</h3>
-              <p className="text-gray-600">
-                Lightning-fast transactions and real-time updates so you're always in control of your money.
-              </p>
-            </div>
-            <div className="bg-blue-50 p-8 rounded-lg">
-              <div className="text-3xl font-bold text-blue-900 mb-3">🌍</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Global</h3>
-              <p className="text-gray-600">
-                Access your accounts anywhere in the world with 24/7 customer support in multiple languages.
-              </p>
-            </div>
-          </div>
+      {/* Footer */}
+      <footer className="border-t border-slate-100 py-8 px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-slate-400">
+          <span>© {new Date().getFullYear()} Horizon Bank. All rights reserved.</span>
+          <span>Member FDIC · Equal Housing Lender</span>
         </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="bg-gradient-to-r from-blue-900 to-blue-800 py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl font-bold text-white mb-16 text-center">
-            By The Numbers
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-5xl font-bold text-blue-300 mb-2">50M+</div>
-              <p className="text-blue-100 text-lg">Active Customers</p>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-blue-300 mb-2">150+</div>
-              <p className="text-blue-100 text-lg">Countries Served</p>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-blue-300 mb-2">$2T+</div>
-              <p className="text-blue-100 text-lg">Assets Under Management</p>
-            </div>
-            <div className="text-center">
-              <div className="text-5xl font-bold text-blue-300 mb-2">99.9%</div>
-              <p className="text-blue-100 text-lg">Uptime</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="bg-white py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-gray-900 mb-6">
-            Ready to Join Millions of Happy Customers?
-          </h2>
-          <p className="text-xl text-gray-600 mb-8">
-            Sign up today and get started with secure, modern banking in just minutes.
-          </p>
-          <button className="bg-blue-900 text-white px-12 py-4 rounded-lg font-semibold text-lg hover:bg-blue-800 transition-colors duration-300">
-            Create Your Account
-          </button>
-        </div>
-      </section>
+      </footer>
     </div>
   );
 }
-
-export default Home;
